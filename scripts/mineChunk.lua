@@ -9,9 +9,6 @@ function MineChunk(turtlePlus)
   for i = 1, height do
     for j = 1, width do
       for k = 1, depth do
-        print(depth)
-        print(turn)
-        print(k)
         if (depth == k) then
         else
           turtlePlus:Move('forward')
