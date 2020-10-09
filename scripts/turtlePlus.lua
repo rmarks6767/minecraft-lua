@@ -84,6 +84,7 @@ function TurtlePlus:MoveFacing(direction)
       self.x = self.x + 1
     end
   end
+  self.movementHistoryFuel = self.movementHistoryFuel + 1
 end
 
 function TurtlePlus:TurnAround()
@@ -114,7 +115,6 @@ function TurtlePlus:ReturnHome()
 end
 
 function TurtlePlus:Move(direction)
-  --Before movement, check fuel level
   local fuelLevel = turtle.getFuelLevel()
 
   if (fuelLevel <= 60) then
@@ -127,7 +127,6 @@ function TurtlePlus:Move(direction)
     end
     turtle.down()
     table.insert(self.movementHistory, 'down')
-    self.movementHistoryFuel = self.movementHistoryFuel + 1
     self.y = self.y - 1
   elseif (direction == 'up') then
     if (turtle.detectUp()) then
@@ -144,7 +143,6 @@ function TurtlePlus:Move(direction)
     table.insert(self.movementHistory, 'forward')
     self:MoveFacing('forward')
   elseif (direction == 'back') then
-    -- Means we can't go back (blocked by a block)
     if(turtle.back() == false) then
       self:TurnAround()
       turtle.dig()
@@ -153,6 +151,56 @@ function TurtlePlus:Move(direction)
     end
     table.insert(self.movementHistory, 'back')
     self:MoveFacing('back')
+  end
+end
+
+function TurtlePlus:GoTo(x, y, z)
+  if (self.x ~= x) then
+    if (self.x - x > 0) then
+      if (self.facing == 'west') then
+        self:Move('forward')
+      else
+        self:Turn('right')
+      end
+      self:GoTo(x, y, z)
+    end
+    if (self.x - x < 0) then
+      if (self.facing == 'east') then
+        self:Move('forward')
+      else
+        self:Turn('right')
+      end
+      self:GoTo(x, y, z)
+    end
+  elseif (self.y ~= y) then
+    if (self.y - y > 0) then
+      if (self.facing == 'east') then
+        self:Move('down')
+      else
+        self:Turn('right')
+      end
+      self:GoTo(x, y, z)
+    end
+    if (self.y - y < 0) then
+      self:Move('up')
+    end
+  elseif (self.z ~= z) then
+    if (self.z - z > 0) then
+      if (self.facing == 'north') then
+        self:Move('forward')
+      else
+        self:Turn('right')
+      end
+      self:GoTo(x, y, z)
+    end
+    if (self.z - z < 0) then
+      if (self.facing == 'south') then
+        self:Move('forward')
+      else
+        self:Turn('right')
+      end
+      self:GoTo(x, y, z)
+    end
   end
 end
 

@@ -32,7 +32,6 @@ function MineChunk(turtlePlus)
     end
   end
 
-  turtlePlus:ReturnHome()
+  turtlePlus:GoTo(0,0,0)
 end
-
 return MineChunk
