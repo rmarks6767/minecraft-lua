@@ -110,6 +110,7 @@ function ChestSorter(turtlePlus)
     stoneChest = Chest:new('1', function() turtlePlus:GoTo(2, 0, 0, 'east') end, MincraftItemData.stone),
     oreChest = Chest:new('2', function() turtlePlus:GoTo(2, 0, 3, 'east') end, MincraftItemData.ore),
     woodChest = Chest:new('3', function() turtlePlus:GoTo(2, 0, 6, 'east') end, MincraftItemData.wood),
+    yeetChest = Chest:new('4', function() turtlePlus:GoTo(2, 0, 6, 'east') end, MincraftItemData.wood),
   }
 
   while true do
